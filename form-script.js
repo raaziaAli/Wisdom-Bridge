@@ -12,7 +12,7 @@
 
 // ── PASTE YOUR DEPLOYED APPS SCRIPT URL HERE ──────────
 // Looks like: https://script.google.com/macros/s/ABC.../exec
-const APPS_SCRIPT_URL = 'PASTE_YOUR_APPS_SCRIPT_URL_HERE';
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx1GFEivaqGw-nWaNd6r7gTuJA4H1CmYPZgINl82CE8eOpneKkVh9xSmQ9wr0_y-rBD/exec';
 // ───────────────────────────────────────────────────────
 
 const SITE_URL = window.location.origin;
