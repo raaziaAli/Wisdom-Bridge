@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WisdomBridge — You're offline</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Lato', sans-serif;
+    background: #faf6ef;
+    color: #1a1208;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 24px;
+    text-align: center;
+  }
+  .logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: #1a1208;
+    margin-bottom: 48px;
+  }
+  .logo span { color: #c8882a; }
+  .icon {
+    font-size: 72px;
+    margin-bottom: 24px;
+    opacity: 0.5;
+  }
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    line-height: 1.2;
+  }
+  h1 em { font-style: italic; color: #c8882a; }
+  p {
+    font-size: 16px;
+    color: #6b5d4f;
+    line-height: 1.7;
+    max-width: 360px;
+    font-weight: 300;
+    margin-bottom: 40px;
+  }
+  .retry-btn {
+    padding: 14px 36px;
+    background: #1a1208;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-family: 'Lato', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    letter-spacing: 0.04em;
+    transition: background 0.2s;
+  }
+  .retry-btn:hover { background: #c8882a; }
+  .note {
+    margin-top: 32px;
+    font-size: 13px;
+    color: #9e8e82;
+    font-weight: 300;
+  }
+</style>
+</head>
+<body>
+  <svg width="100" height="100" style="border-radius:50%;margin-bottom:24px;box-shadow:0 8px 32px rgba(92,72,48,0.15);" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="50" cy="50" r="48" fill="#1a1208"/>
+    <circle cx="50" cy="50" r="44" fill="none" stroke="#c8882a" stroke-width="0.8" stroke-dasharray="3 4" opacity="0.4"/>
+    <path d="M 18 62 Q 50 22 82 62" fill="none" stroke="#c8882a" stroke-width="3" stroke-linecap="round"/>
+    <line x1="13" y1="66" x2="87" y2="66" stroke="#c8882a" stroke-width="1.8" stroke-linecap="round"/>
+    <line x1="30" y1="44" x2="30" y2="66" stroke="#c8882a" stroke-width="1.2" stroke-linecap="round" opacity="0.7"/>
+    <line x1="50" y1="32" x2="50" y2="66" stroke="#c8882a" stroke-width="1.2" stroke-linecap="round" opacity="0.7"/>
+    <line x1="70" y1="44" x2="70" y2="66" stroke="#c8882a" stroke-width="1.2" stroke-linecap="round" opacity="0.7"/>
+    <circle cx="24" cy="51" r="5" fill="#e8b96a"/>
+    <circle cx="76" cy="53" r="4" fill="#8aac8a"/>
+    <path d="M 33 36 Q 50 30 67 36" fill="none" stroke="#e8b96a" stroke-width="1.2" stroke-linecap="round" opacity="0.85"/>
+    <path d="M 67 40 Q 50 34 33 40" fill="none" stroke="#8aac8a" stroke-width="1.2" stroke-linecap="round" opacity="0.85"/>
+  </svg>
+  <div style="font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:#1a1208;margin-bottom:48px;">Wisdom<span style="color:#c8882a;">Bridge</span></div>
+  <h1>You're offline <em>right now.</em></h1>
+  <p>Don't worry — your information is safe. Reconnect to the internet and tap the button below to continue.</p>
+  <button class="retry-btn" onclick="window.location.reload()">Try again →</button>
+  <div class="note">Your signup data is saved on your device and will sync when you're back online.</div>
+</body>
+</html>

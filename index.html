@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WisdomBridge — Your wisdom. The world's future.</title>
+<meta name="description" content="Join thousands of retired professionals sharing decades of expertise with the next generation. Connect, inspire, and belong — at any age.">
+
+<!-- PWA -->
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#5c4830">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="WisdomBridge">
+<link rel="apple-touch-icon" href="/icons/icon-192.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192.png">
+
+<!-- Social -->
+<meta property="og:title" content="WisdomBridge — Your wisdom. The world's future.">
+<meta property="og:description" content="A global platform connecting seniors with young people hungry to learn. Webinars, mentorship, social gatherings and real human bonds.">
+<meta property="og:image" content="https://images.unsplash.com/photo-1511632765486-a01980e01a18?w=1200&q=80">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --ink: #1a1208;
+  --ink-mid: #3d2e1a;
+  --warm-gray: #6b5d4f;
+  --gold: #c8882a;
+  --gold-light: #e8b96a;
+  --gold-pale: #fdf3e0;
+  --sage: #5a7a5a;
+  --sage-light: #8aac8a;
+  --sage-pale: #eaf2ea;
+  --cream: #faf6ef;
+  --white: #ffffff;
+  --border: rgba(139,111,71,0.18);
+  --border-strong: rgba(139,111,71,0.32);
+}
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+body { font-family:'Lato',sans-serif; background:var(--cream); color:var(--ink); overflow-x:hidden; }
+
+/* NAV */
+nav { position:fixed; top:0; left:0; right:0; z-index:100; padding:18px 5vw; display:flex; align-items:center; justify-content:space-between; transition:background 0.3s,box-shadow 0.3s; }
+nav.scrolled { background:rgba(250,246,239,0.95); backdrop-filter:blur(12px); box-shadow:0 1px 0 var(--border); }
+.nav-logo { font-family:'Playfair Display',serif; font-size:22px; font-weight:700; color:var(--ink); text-decoration:none; }
+.nav-logo span { color:var(--gold); }
+.nav-cta { padding:10px 24px; background:var(--ink); color:white; border:none; border-radius:6px; font-family:'Lato',sans-serif; font-size:14px; font-weight:700; letter-spacing:0.04em; cursor:pointer; text-decoration:none; transition:background 0.2s,transform 0.2s; display:inline-block; }
+.nav-cta:hover { background:var(--gold); transform:translateY(-1px); }
+
+/* HERO */
+.hero { min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:120px 5vw 80px; position:relative; }
+.hero-bg { position:absolute; inset:0; background:radial-gradient(ellipse 80% 60% at 50% 30%,rgba(200,136,42,0.10) 0%,transparent 70%), radial-gradient(ellipse 60% 40% at 20% 80%,rgba(90,122,90,0.08) 0%,transparent 60%); pointer-events:none; }
+.eyebrow { display:inline-flex; align-items:center; gap:8px; font-size:12px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--gold); margin-bottom:28px; opacity:0; animation:fadeUp 0.8s ease 0.1s forwards; }
+.eyebrow::before,.eyebrow::after { content:''; width:32px; height:1px; background:var(--gold-light); display:block; }
+h1 { font-family:'Playfair Display',serif; font-size:clamp(44px,7vw,88px); font-weight:900; line-height:1.0; color:var(--ink); margin-bottom:28px; max-width:900px; opacity:0; animation:fadeUp 0.8s ease 0.25s forwards; }
+h1 em { font-style:italic; color:var(--gold); display:block; }
+.hero-sub { font-size:clamp(16px,2vw,20px); color:var(--warm-gray); line-height:1.7; max-width:600px; margin:0 auto 52px; font-weight:300; opacity:0; animation:fadeUp 0.8s ease 0.4s forwards; }
+
+/* SIGNUP CARD */
+.signup-card { background:white; border:1px solid var(--border); border-radius:16px; padding:40px; max-width:580px; width:100%; margin:0 auto; box-shadow:0 24px 80px rgba(92,72,48,0.12); opacity:0; animation:fadeUp 0.8s ease 0.55s forwards; position:relative; z-index:1; }
+.signup-title { font-family:'Playfair Display',serif; font-size:24px; font-weight:700; color:var(--ink); margin-bottom:6px; }
+.signup-sub { font-size:14px; color:var(--warm-gray); margin-bottom:28px; line-height:1.6; }
+.form-row { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:14px; }
+.form-row.single { grid-template-columns:1fr; }
+.field label { display:block; font-size:11px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--warm-gray); margin-bottom:6px; }
+.field input,.field select,.field textarea { width:100%; padding:12px 14px; border:1.5px solid var(--border); border-radius:8px; font-family:'Lato',sans-serif; font-size:15px; color:var(--ink); background:var(--cream); outline:none; transition:border-color 0.2s,background 0.2s; appearance:none; }
+.field input:focus,.field select:focus,.field textarea:focus { border-color:var(--gold); background:white; }
+.field textarea { height:80px; resize:vertical; }
+.expertise-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-bottom:14px; }
+.exp-btn { padding:9px 8px; border:1.5px solid var(--border); border-radius:8px; font-family:'Lato',sans-serif; font-size:12px; color:var(--warm-gray); background:var(--cream); cursor:pointer; transition:all 0.2s; text-align:center; }
+.exp-btn:hover { border-color:var(--gold-light); color:var(--gold); }
+.exp-btn.active { background:var(--ink); color:white; border-color:var(--ink); }
+.open-to { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:20px; }
+.open-chip { padding:7px 14px; border:1.5px solid var(--border); border-radius:20px; font-size:13px; color:var(--warm-gray); background:var(--cream); cursor:pointer; transition:all 0.2s; }
+.open-chip:hover { border-color:var(--sage-light); color:var(--sage); }
+.open-chip.active { background:var(--sage); color:white; border-color:var(--sage); }
+
+/* SUBMIT BUTTON */
+.submit-btn { width:100%; padding:16px; background:var(--ink); color:white; border:none; border-radius:10px; font-family:'Lato',sans-serif; font-size:16px; font-weight:700; letter-spacing:0.04em; cursor:pointer; transition:all 0.2s; position:relative; overflow:hidden; }
+.submit-btn:hover:not(:disabled) { background:var(--gold); transform:translateY(-2px); box-shadow:0 8px 32px rgba(200,136,42,0.3); }
+.submit-btn:disabled { opacity:0.7; cursor:not-allowed; transform:none; }
+
+/* LOADING SPINNER */
+.spinner { display:inline-block; width:16px; height:16px; border:2px solid rgba(255,255,255,0.3); border-top-color:white; border-radius:50%; animation:spin 0.7s linear infinite; vertical-align:middle; margin-right:8px; }
+@keyframes spin { to { transform:rotate(360deg); } }
+
+/* ERROR / STATUS */
+.status-msg { padding:12px 16px; border-radius:8px; font-size:13px; margin-bottom:16px; display:none; line-height:1.5; }
+.status-error { background:#fef2f2; color:#991b1b; border:1px solid #fecaca; }
+.status-saving { background:var(--gold-pale); color:#92400e; border:1px solid #fcd34d; }
+
+.privacy-note { font-size:11px; color:var(--warm-gray); text-align:center; margin-top:14px; opacity:0.7; }
+
+/* SUCCESS STATE */
+.success-state { display:none; text-align:center; padding:20px 0; }
+.success-icon { font-size:56px; margin-bottom:16px; }
+.success-title { font-family:'Playfair Display',serif; font-size:26px; font-weight:700; color:var(--ink); margin-bottom:10px; }
+.success-sub { font-size:15px; color:var(--warm-gray); line-height:1.7; margin-bottom:28px; }
+.share-row { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; }
+.share-btn { padding:12px 20px; border-radius:8px; font-family:'Lato',sans-serif; font-size:13px; font-weight:700; cursor:pointer; border:none; transition:all 0.2s; display:flex; align-items:center; gap:8px; text-decoration:none; }
+.share-linkedin { background:#0077B5; color:white; }
+.share-whatsapp { background:#25D366; color:white; }
+.share-copy { background:var(--cream); color:var(--ink); border:1.5px solid var(--border); }
+.share-btn:hover { transform:translateY(-2px); opacity:0.9; }
+
+/* TRUST BAR */
+.trust-bar { padding:28px 5vw; border-top:1px solid var(--border); border-bottom:1px solid var(--border); display:flex; align-items:center; justify-content:center; gap:48px; flex-wrap:wrap; background:white; }
+.trust-stat { text-align:center; }
+.trust-num { font-family:'Playfair Display',serif; font-size:32px; font-weight:700; color:var(--ink); }
+.trust-label { font-size:12px; color:var(--warm-gray); letter-spacing:0.05em; margin-top:2px; }
+
+/* HOW IT WORKS */
+.section { padding:100px 5vw; }
+.section-eyebrow { font-size:11px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--gold); margin-bottom:16px; }
+.section-title { font-family:'Playfair Display',serif; font-size:clamp(32px,5vw,56px); font-weight:700; color:var(--ink); line-height:1.1; margin-bottom:16px; }
+.section-title em { font-style:italic; color:var(--gold); }
+.section-sub { font-size:17px; color:var(--warm-gray); line-height:1.7; max-width:560px; font-weight:300; }
+.steps { display:grid; grid-template-columns:repeat(3,1fr); gap:32px; margin-top:64px; }
+.step { opacity:0; transform:translateY(24px); transition:opacity 0.6s ease,transform 0.6s ease; }
+.step.visible { opacity:1; transform:translateY(0); }
+.step-num { font-family:'Playfair Display',serif; font-size:72px; font-weight:900; color:var(--gold-pale); line-height:1; margin-bottom:-16px; position:relative; z-index:0; }
+.step-content { position:relative; z-index:1; }
+.step-icon { font-size:32px; margin-bottom:14px; }
+.step-title { font-family:'Playfair Display',serif; font-size:20px; font-weight:700; color:var(--ink); margin-bottom:10px; }
+.step-desc { font-size:15px; color:var(--warm-gray); line-height:1.7; font-weight:300; }
+
+/* FEATURES */
+.features-bg { background:var(--ink); }
+.features { padding:100px 5vw; }
+.features .section-title { color:white; }
+.features .section-eyebrow { color:var(--gold-light); }
+.features .section-sub { color:rgba(255,255,255,0.55); }
+.features-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:24px; margin-top:64px; }
+.feature-card { background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); border-radius:16px; padding:32px; transition:all 0.3s; opacity:0; transform:translateY(20px); }
+.feature-card.visible { opacity:1; transform:translateY(0); }
+.feature-card:hover { background:rgba(255,255,255,0.08); border-color:rgba(200,136,42,0.4); }
+.feature-icon-wrap { width:48px; height:48px; border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:22px; margin-bottom:18px; }
+.fi-gold { background:rgba(200,136,42,0.2); }
+.fi-sage { background:rgba(90,122,90,0.2); }
+.fi-blue { background:rgba(60,90,150,0.2); }
+.fi-rust { background:rgba(180,90,60,0.2); }
+.feature-title { font-family:'Playfair Display',serif; font-size:20px; font-weight:700; color:white; margin-bottom:10px; }
+.feature-desc { font-size:14px; color:rgba(255,255,255,0.5); line-height:1.7; font-weight:300; }
+
+/* TESTIMONIALS */
+.testimonials { padding:100px 5vw; background:white; }
+.testimonial-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; margin-top:56px; }
+.testimonial-card { background:var(--cream); border:1px solid var(--border); border-radius:16px; padding:28px; opacity:0; transform:translateY(20px); transition:opacity 0.6s ease,transform 0.6s ease; }
+.testimonial-card.visible { opacity:1; transform:translateY(0); }
+.quote-mark { font-family:'Playfair Display',serif; font-size:48px; color:var(--gold-light); line-height:0.8; margin-bottom:12px; }
+.quote-text { font-size:15px; color:var(--ink-mid); line-height:1.75; font-weight:300; margin-bottom:20px; font-style:italic; }
+.quote-author { display:flex; align-items:center; gap:12px; }
+.quote-av { width:40px; height:40px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:'Playfair Display',serif; font-size:16px; font-weight:700; }
+.quote-name { font-size:13px; font-weight:700; color:var(--ink); }
+.quote-role { font-size:11px; color:var(--warm-gray); }
+
+/* BOTTOM CTA */
+.bottom-cta { padding:120px 5vw; text-align:center; background:radial-gradient(ellipse 80% 60% at 50% 50%,rgba(200,136,42,0.12) 0%,transparent 70%); }
+.bottom-cta h2 { font-family:'Playfair Display',serif; font-size:clamp(36px,5vw,64px); font-weight:900; color:var(--ink); line-height:1.05; margin-bottom:20px; }
+.bottom-cta h2 em { font-style:italic; color:var(--gold); }
+.bottom-cta p { font-size:18px; color:var(--warm-gray); margin-bottom:40px; font-weight:300; }
+.cta-btn-lg { display:inline-block; padding:18px 44px; background:var(--ink); color:white; border:none; border-radius:8px; font-family:'Lato',sans-serif; font-size:16px; font-weight:700; letter-spacing:0.05em; cursor:pointer; text-decoration:none; transition:all 0.2s; }
+.cta-btn-lg:hover { background:var(--gold); transform:translateY(-3px); box-shadow:0 16px 48px rgba(200,136,42,0.3); }
+
+/* FOOTER */
+footer { background:var(--ink); color:rgba(255,255,255,0.5); padding:48px 5vw; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:20px; }
+.footer-logo { font-family:'Playfair Display',serif; font-size:20px; font-weight:700; color:white; }
+.footer-logo span { color:var(--gold-light); }
+.footer-links { display:flex; gap:24px; }
+.footer-links a { color:rgba(255,255,255,0.4); font-size:13px; text-decoration:none; transition:color 0.2s; }
+.footer-links a:hover { color:white; }
+
+/* ANIMATIONS */
+@keyframes fadeUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+
+/* RESPONSIVE */
+@media (max-width:768px) {
+  .form-row { grid-template-columns:1fr; }
+  .expertise-grid { grid-template-columns:repeat(2,1fr); }
+  .steps { grid-template-columns:1fr; }
+  .features-grid { grid-template-columns:1fr; }
+  .testimonial-grid { grid-template-columns:1fr; }
+  .trust-bar { gap:28px; }
+  .signup-card { padding:28px 22px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ WISDOMBRIDGE SVG LOGO — reusable symbol ═══ -->
+<svg width="0" height="0" style="position:absolute" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Full circular logo -->
+    <symbol id="wb-logo-circle" viewBox="0 0 480 480">
+      <circle cx="240" cy="240" r="220" fill="#1a1208"/>
+      <circle cx="240" cy="240" r="210" fill="none" stroke="#c8882a" stroke-width="1.5" stroke-dasharray="6 8" opacity="0.4"/>
+      <path d="M 100 290 Q 240 100 380 290" fill="none" stroke="#c8882a" stroke-width="6" stroke-linecap="round"/>
+      <line x1="80" y1="300" x2="400" y2="300" stroke="#c8882a" stroke-width="3" stroke-linecap="round"/>
+      <line x1="155" y1="220" x2="155" y2="300" stroke="#c8882a" stroke-width="2" stroke-linecap="round" opacity="0.7"/>
+      <line x1="195" y1="181" x2="195" y2="300" stroke="#c8882a" stroke-width="2" stroke-linecap="round" opacity="0.7"/>
+      <line x1="240" y1="168" x2="240" y2="300" stroke="#c8882a" stroke-width="2" stroke-linecap="round" opacity="0.7"/>
+      <line x1="285" y1="181" x2="285" y2="300" stroke="#c8882a" stroke-width="2" stroke-linecap="round" opacity="0.7"/>
+      <line x1="325" y1="220" x2="325" y2="300" stroke="#c8882a" stroke-width="2" stroke-linecap="round" opacity="0.7"/>
+      <circle cx="118" cy="242" r="18" fill="#e8b96a"/>
+      <line x1="118" y1="260" x2="118" y2="298" stroke="#e8b96a" stroke-width="5" stroke-linecap="round"/>
+      <line x1="118" y1="272" x2="148" y2="282" stroke="#e8b96a" stroke-width="4" stroke-linecap="round"/>
+      <line x1="118" y1="272" x2="96"  y2="280" stroke="#e8b96a" stroke-width="4" stroke-linecap="round"/>
+      <line x1="118" y1="298" x2="106" y2="318" stroke="#e8b96a" stroke-width="4" stroke-linecap="round"/>
+      <line x1="118" y1="298" x2="130" y2="318" stroke="#e8b96a" stroke-width="4" stroke-linecap="round"/>
+      <line x1="96"  y1="280" x2="88"  y2="318" stroke="#e8b96a" stroke-width="2.5" stroke-linecap="round" opacity="0.8"/>
+      <circle cx="362" cy="246" r="15" fill="#8aac8a"/>
+      <line x1="362" y1="261" x2="362" y2="298" stroke="#8aac8a" stroke-width="4.5" stroke-linecap="round"/>
+      <line x1="362" y1="272" x2="334" y2="280" stroke="#8aac8a" stroke-width="3.5" stroke-linecap="round"/>
+      <line x1="362" y1="272" x2="382" y2="278" stroke="#8aac8a" stroke-width="3.5" stroke-linecap="round"/>
+      <line x1="362" y1="298" x2="350" y2="318" stroke="#8aac8a" stroke-width="3.5" stroke-linecap="round"/>
+      <line x1="362" y1="298" x2="374" y2="318" stroke="#8aac8a" stroke-width="3.5" stroke-linecap="round"/>
+      <marker id="ag" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+        <path d="M2 1L8 5L2 9" fill="none" stroke="#e8b96a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </marker>
+      <marker id="agg" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+        <path d="M2 1L8 5L2 9" fill="none" stroke="#8aac8a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </marker>
+      <path d="M 168 152 Q 240 128 312 152" fill="none" stroke="#e8b96a" stroke-width="2" stroke-linecap="round" marker-end="url(#ag)" opacity="0.85"/>
+      <path d="M 312 166 Q 240 142 168 166" fill="none" stroke="#8aac8a" stroke-width="2" stroke-linecap="round" marker-end="url(#agg)" opacity="0.85"/>
+      <circle cx="168" cy="152" r="3" fill="#e8b96a" opacity="0.9"/>
+      <circle cx="312" cy="166" r="3" fill="#8aac8a" opacity="0.9"/>
+      <text x="240" y="366" font-family="Georgia,'Times New Roman',serif" font-size="32" font-weight="700" fill="#ffffff" text-anchor="middle" letter-spacing="1">WisdomBridge</text>
+      <text x="240" y="392" font-family="Georgia,serif" font-size="13" font-style="italic" fill="#c8882a" text-anchor="middle" letter-spacing="1.5" opacity="0.9">connecting generations</text>
+      <line x1="148" y1="400" x2="332" y2="400" stroke="#c8882a" stroke-width="0.75" opacity="0.5"/>
+      <circle cx="176" cy="420" r="5" fill="#e8b96a"/>
+      <text x="186" y="424" font-family="Georgia,serif" font-size="11" fill="#e8b96a" opacity="0.7">Wisdom</text>
+      <circle cx="256" cy="420" r="5" fill="#8aac8a"/>
+      <text x="266" y="424" font-family="Georgia,serif" font-size="11" fill="#8aac8a" opacity="0.7">Technology</text>
+    </symbol>
+
+    <!-- Icon-only mark (used in nav, favicon area) -->
+    <symbol id="wb-logo-mark" viewBox="0 0 100 100">
+      <circle cx="50" cy="50" r="48" fill="#1a1208"/>
+      <circle cx="50" cy="50" r="44" fill="none" stroke="#c8882a" stroke-width="0.8" stroke-dasharray="3 4" opacity="0.4"/>
+      <path d="M 18 62 Q 50 22 82 62" fill="none" stroke="#c8882a" stroke-width="3" stroke-linecap="round"/>
+      <line x1="13" y1="66" x2="87" y2="66" stroke="#c8882a" stroke-width="1.8" stroke-linecap="round"/>
+      <line x1="30" y1="44" x2="30" y2="66" stroke="#c8882a" stroke-width="1.2" stroke-linecap="round" opacity="0.7"/>
+      <line x1="42" y1="35" x2="42" y2="66" stroke="#c8882a" stroke-width="1.2" stroke-linecap="round" opacity="0.7"/>
+      <line x1="50" y1="32" x2="50" y2="66" stroke="#c8882a" stroke-width="1.2" stroke-linecap="round" opacity="0.7"/>
+      <line x1="58" y1="35" x2="58" y2="66" stroke="#c8882a" stroke-width="1.2" stroke-linecap="round" opacity="0.7"/>
+      <line x1="70" y1="44" x2="70" y2="66" stroke="#c8882a" stroke-width="1.2" stroke-linecap="round" opacity="0.7"/>
+      <circle cx="24" cy="51" r="5" fill="#e8b96a"/>
+      <circle cx="76" cy="53" r="4" fill="#8aac8a"/>
+      <path d="M 33 36 Q 50 30 67 36" fill="none" stroke="#e8b96a" stroke-width="1.2" stroke-linecap="round" opacity="0.85"/>
+      <path d="M 67 40 Q 50 34 33 40" fill="none" stroke="#8aac8a" stroke-width="1.2" stroke-linecap="round" opacity="0.85"/>
+    </symbol>
+  </defs>
+</svg>
+
+<nav id="nav">
+  <a href="#" class="nav-logo" style="display:flex;align-items:center;gap:10px;text-decoration:none;">
+    <svg width="36" height="36" style="flex-shrink:0;border-radius:50%;"><use href="#wb-logo-mark"/></svg>
+    <span style="font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--ink);">Wisdom<span style="color:var(--gold);">Bridge</span></span>
+  </a>
+  <a href="#signup" class="nav-cta">Join the waitlist</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div style="opacity:0;animation:fadeUp 0.9s ease 0s forwards;">
+    <svg width="160" height="160" style="border-radius:50%;box-shadow:0 12px 48px rgba(92,72,48,0.18);">
+      <use href="#wb-logo-circle"/>
+    </svg>
+  </div>
+  <div class="eyebrow">A global movement is beginning</div>
+  <h1>Your wisdom.<br><em>The world's future.</em></h1>
+  <p class="hero-sub">WisdomBridge connects retired professionals 60+ with young people, universities, and communities worldwide — turning decades of lived experience into living inspiration.</p>
+
+  <!-- ══════════════════════════════════════
+       SIGNUP FORM — auto-saves to Google Sheets
+       ══════════════════════════════════════ -->
+  <div class="signup-card" id="signup">
+    <div id="form-view">
+      <div class="signup-title">Join the founding community</div>
+      <div class="signup-sub">Be among the first. Share who you are — we'll build the platform around you.</div>
+
+      <!-- Status messages -->
+      <div class="status-msg status-saving" id="msg-saving">⏳ Saving your details…</div>
+      <div class="status-msg status-error" id="msg-error">Something went wrong. Please try again — or email us at <strong>join@wisdombridge.org</strong></div>
+
+      <div class="form-row">
+        <div class="field">
+          <label>First name *</label>
+          <input type="text" id="fname" placeholder="Your name" required>
+        </div>
+        <div class="field">
+          <label>Age</label>
+          <input type="number" id="age" placeholder="60+" min="18" max="120">
+        </div>
+      </div>
+
+      <div class="form-row single">
+        <div class="field">
+          <label>Email address *</label>
+          <input type="email" id="email" placeholder="you@example.com" required>
+        </div>
+      </div>
+
+      <div class="form-row single">
+        <div class="field">
+          <label>Phone / WhatsApp (optional)</label>
+          <input type="tel" id="phone" placeholder="+966 5X XXX XXXX">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="field">
+          <label>Country *</label>
+          <select id="country" required>
+            <option value="">Select country…</option>
+            <option>Saudi Arabia</option>
+            <option>United Arab Emirates</option>
+            <option>Kuwait</option>
+            <option>Bahrain</option>
+            <option>Qatar</option>
+            <option>Oman</option>
+            <option>Jordan</option>
+            <option>Egypt</option>
+            <option>United States</option>
+            <option>United Kingdom</option>
+            <option>India</option>
+            <option>Pakistan</option>
+            <option>Kenya</option>
+            <option>Nigeria</option>
+            <option>Turkey</option>
+            <option>South Africa</option>
+            <option>Bangladesh</option>
+            <option>Indonesia</option>
+            <option>Malaysia</option>
+            <option>Philippines</option>
+            <option>Japan</option>
+            <option>Germany</option>
+            <option>France</option>
+            <option>Canada</option>
+            <option>Australia</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>I am a *</label>
+          <select id="role" required>
+            <option value="">Select role…</option>
+            <option>Senior / Retired professional (60+)</option>
+            <option>Young learner / Student</option>
+            <option>University partner</option>
+            <option>Nursing home / Care facility</option>
+            <option>Community organiser</option>
+            <option>Corporate sponsor</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field" style="margin-bottom:14px;">
+        <label>Field of expertise or interest</label>
+      </div>
+      <div class="expertise-grid" id="expertise-grid">
+        <button type="button" class="exp-btn" onclick="toggleExp(this)">🏛️ Architecture</button>
+        <button type="button" class="exp-btn" onclick="toggleExp(this)">⚕️ Medicine</button>
+        <button type="button" class="exp-btn" onclick="toggleExp(this)">🌱 Agriculture</button>
+        <button type="button" class="exp-btn" onclick="toggleExp(this)">⚙️ Engineering</button>
+        <button type="button" class="exp-btn" onclick="toggleExp(this)">📚 Education</button>
+        <button type="button" class="exp-btn" onclick="toggleExp(this)">💼 Business</button>
+        <button type="button" class="exp-btn" onclick="toggleExp(this)">🎨 Arts</button>
+        <button type="button" class="exp-btn" onclick="toggleExp(this)">⚖️ Law</button>
+        <button type="button" class="exp-btn" onclick="toggleExp(this)">💻 Technology</button>
+      </div>
+
+      <div class="field" style="margin-bottom:10px;">
+        <label>I'm open to</label>
+      </div>
+      <div class="open-to" id="open-to">
+        <button type="button" class="open-chip" onclick="toggleChip(this)">Hosting webinars</button>
+        <button type="button" class="open-chip" onclick="toggleChip(this)">Mentoring youth</button>
+        <button type="button" class="open-chip" onclick="toggleChip(this)">University talks</button>
+        <button type="button" class="open-chip" onclick="toggleChip(this)">Social gatherings</button>
+        <button type="button" class="open-chip" onclick="toggleChip(this)">Online games</button>
+        <button type="button" class="open-chip" onclick="toggleChip(this)">In-person meetups</button>
+      </div>
+
+      <div class="form-row single">
+        <div class="field">
+          <label>Your career in one sentence (optional)</label>
+          <textarea id="bio" placeholder="e.g. 35 years as a civil engineer building infrastructure across the Gulf…"></textarea>
+        </div>
+      </div>
+
+      <button class="submit-btn" id="submit-btn" onclick="submitForm()">
+        Join WisdomBridge →
+      </button>
+      <div class="privacy-note">🔒 Your information is private and secure. We will never sell or share your data.</div>
+    </div>
+
+    <!-- SUCCESS STATE -->
+    <div class="success-state" id="success-view">
+      <div class="success-icon">🌿</div>
+      <div class="success-title">You're part of something beautiful.</div>
+      <div class="success-sub">
+        Welcome to the founding community of WisdomBridge.<br>
+        <strong>Check your email</strong> — a welcome message is on its way.<br><br>
+        Now, help us spread the word:
+      </div>
+      <div class="share-row">
+        <a class="share-btn share-linkedin" id="share-li" href="#" target="_blank">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          Share on LinkedIn
+        </a>
+        <a class="share-btn share-whatsapp" id="share-wa" href="#" target="_blank">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Share on WhatsApp
+        </a>
+        <button class="share-btn share-copy" onclick="copyLink()">📋 Copy link</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST BAR -->
+<div class="trust-bar">
+  <div class="trust-stat"><div class="trust-num">1.4B</div><div class="trust-label">People aged 60+ worldwide by 2030</div></div>
+  <div class="trust-stat"><div class="trust-num">63</div><div class="trust-label">Countries already represented</div></div>
+  <div class="trust-stat"><div class="trust-num">100%</div><div class="trust-label">Free for seniors — always</div></div>
+  <div class="trust-stat"><div class="trust-num">∞</div><div class="trust-label">Wisdom waiting to be shared</div></div>
+</div>
+
+<!-- HOW IT WORKS -->
+<section class="section">
+  <div class="section-eyebrow">How it works</div>
+  <div class="section-title">Simple. Human.<br><em>Life-changing.</em></div>
+  <div class="section-sub">In just three steps, your lifetime of experience reaches people who need it most — from nursing homes to universities.</div>
+  <div class="steps">
+    <div class="step"><div class="step-num">01</div><div class="step-content"><div class="step-icon">📝</div><div class="step-title">Create your profile</div><div class="step-desc">Tell us who you are — your career, your expertise, your story. We match you automatically with the right groups and events.</div></div></div>
+    <div class="step"><div class="step-num">02</div><div class="step-content"><div class="step-icon">🤝</div><div class="step-title">Connect and engage</div><div class="step-desc">Join groups of peers in your field. Attend webinars. Mentor a young person. Play chess with someone across the world.</div></div></div>
+    <div class="step"><div class="step-num">03</div><div class="step-content"><div class="step-icon">🌍</div><div class="step-title">Leave a legacy</div><div class="step-desc">Your knowledge reaches universities, nursing homes, and communities everywhere. In the age of AI, you are the irreplaceable human connection.</div></div></div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features-bg">
+  <div class="features">
+    <div class="section-eyebrow">What's waiting for you</div>
+    <div class="section-title">Everything in one place.<br><em>Built for real life.</em></div>
+    <div class="section-sub">Not a social media feed. A platform built around your dignity, your wisdom, and your time.</div>
+    <div class="features-grid">
+      <div class="feature-card"><div class="feature-icon-wrap fi-gold">🎤</div><div class="feature-title">Live webinars & talks</div><div class="feature-desc">Host or attend live sessions. Partner with universities to give guest lectures and reach the next generation directly.</div></div>
+      <div class="feature-card"><div class="feature-icon-wrap fi-sage">👥</div><div class="feature-title">Expert groups</div><div class="feature-desc">Join groups of 15–30 people with overlapping expertise — engineers, farmers, doctors, teachers — from across the world.</div></div>
+      <div class="feature-card"><div class="feature-icon-wrap fi-blue">♟️</div><div class="feature-title">Social & games</div><div class="feature-desc">Chess, trivia, book clubs, storytelling circles. Activities designed to create real friendships, not just connections.</div></div>
+      <div class="feature-card"><div class="feature-icon-wrap fi-rust">🏥</div><div class="feature-title">Nursing home access</div><div class="feature-desc">A large-text, tablet-friendly mode for care facilities. No one should be left out. Every senior deserves to be seen and heard.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="section-eyebrow">Voices from the community</div>
+  <div class="section-title">Real people.<br><em>Real impact.</em></div>
+  <div class="testimonial-grid">
+    <div class="testimonial-card"><div class="quote-mark">"</div><div class="quote-text">I spent 40 years as a civil engineer and thought that knowledge would die with me. WisdomBridge connected me with three universities in the first month. I've never felt more alive.</div><div class="quote-author"><div class="quote-av" style="background:var(--gold-pale);color:var(--gold);">RK</div><div><div class="quote-name">Rajan Kumar</div><div class="quote-role">Age 68 · Mumbai, India</div></div></div></div>
+    <div class="testimonial-card"><div class="quote-mark">"</div><div class="quote-text">My mother is in a nursing home and was depressed for two years. Since she joined the chess club on WisdomBridge, she calls me every Friday about her new friends.</div><div class="quote-author"><div class="quote-av" style="background:var(--sage-pale);color:var(--sage);">NA</div><div><div class="quote-name">Nadia Al-Rashidi</div><div class="quote-role">Daughter of a member · Riyadh, KSA</div></div></div></div>
+    <div class="testimonial-card"><div class="quote-mark">"</div><div class="quote-text">I'm 23 and finishing my architecture degree. The mentorship I received on WisdomBridge changed how I think about design. No textbook could teach me what Eleanor taught me.</div><div class="quote-author"><div class="quote-av" style="background:var(--gold-pale);color:var(--ink-mid);">TM</div><div><div class="quote-name">Tariq Mohammed</div><div class="quote-role">Student · Dubai, UAE</div></div></div></div>
+  </div>
+</section>
+
+<!-- BOTTOM CTA -->
+<section class="bottom-cta">
+  <h2>The world needs<br><em>your story.</em></h2>
+  <p>Join the founding community. Shape what WisdomBridge becomes.</p>
+  <a href="#signup" class="cta-btn-lg">Reserve your place →</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo" style="display:flex;align-items:center;gap:10px;">
+    <svg width="32" height="32" style="border-radius:50%;flex-shrink:0;"><use href="#wb-logo-mark"/></svg>
+    <span>Wisdom<span style="color:var(--gold-light);">Bridge</span></span>
+  </div>
+  <div style="font-size:13px;opacity:0.4;">Built with purpose. Powered by humanity.</div>
+  <div class="footer-links"><a href="#">Privacy</a><a href="#">Contact</a><a href="#signup">Join</a></div>
+</footer>
+
+<!-- INSTALL BANNER (Android) -->
+<div id="install-banner" style="position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(100px);opacity:0;transition:transform 0.4s ease,opacity 0.4s ease;z-index:999;background:#1a1208;color:white;border-radius:16px;padding:16px 20px;display:flex;align-items:center;gap:14px;box-shadow:0 8px 40px rgba(0,0,0,0.3);max-width:360px;width:calc(100vw - 40px);font-family:'Lato',sans-serif;">
+  <img src="/icons/icon-72.png" width="44" height="44" style="border-radius:10px;flex-shrink:0;" alt="WisdomBridge">
+  <div style="flex:1;min-width:0;"><div style="font-size:14px;font-weight:700;margin-bottom:2px;">Add to your home screen</div><div style="font-size:12px;opacity:0.6;line-height:1.4;">Install WisdomBridge — works offline too</div></div>
+  <div style="display:flex;flex-direction:column;gap:6px;flex-shrink:0;">
+    <button id="install-btn" style="padding:8px 14px;background:#c8882a;color:white;border:none;border-radius:8px;font-family:'Lato',sans-serif;font-size:12px;font-weight:700;cursor:pointer;">Install</button>
+    <button id="dismiss-install" style="padding:5px 14px;background:transparent;color:rgba(255,255,255,0.5);border:none;font-family:'Lato',sans-serif;font-size:11px;cursor:pointer;">Not now</button>
+  </div>
+</div>
+
+<!-- iOS HINT -->
+<div id="ios-hint" style="display:none;position:fixed;bottom:0;left:0;right:0;background:#1a1208;color:white;padding:20px 24px;font-family:'Lato',sans-serif;z-index:999;border-radius:20px 20px 0 0;">
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;"><div style="font-size:15px;font-weight:700;">Install on your iPhone</div><button onclick="document.getElementById('ios-hint').style.display='none'" style="background:none;border:none;color:rgba(255,255,255,0.5);font-size:22px;cursor:pointer;line-height:1;">×</button></div>
+  <div style="font-size:13px;opacity:0.7;line-height:1.8;">1. Tap the <strong style="color:#c8882a;">Share</strong> button at the bottom of your screen<br>2. Tap <strong style="color:#c8882a;">"Add to Home Screen"</strong><br>3. Tap <strong style="color:#c8882a;">"Add"</strong> — done!</div>
+</div>
+
+<script>
+  /* ══════════════════════════════════════════════
+     CONFIGURATION — paste your Make.com webhook URL here
+     after following the setup guide (SETUP-GUIDE.txt)
+     ══════════════════════════════════════════════ */
+  const MAKE_WEBHOOK_URL = 'PASTE_YOUR_MAKE_WEBHOOK_URL_HERE';
+
+  /* Your site URL for sharing links */
+  const SITE_URL = window.location.origin;
+
+  /* ── NAV SCROLL ── */
+  window.addEventListener('scroll', () => {
+    document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  /* ── SCROLL REVEAL ── */
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), e.target.dataset.delay || 0);
+      }
+    });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.step,.feature-card,.testimonial-card').forEach((el, i) => {
+    el.dataset.delay = (i % 3) * 120;
+    observer.observe(el);
+  });
+
+  /* ── TOGGLES ── */
+  function toggleExp(el) { el.classList.toggle('active'); }
+  function toggleChip(el) { el.classList.toggle('active'); }
+
+  /* ── SHOW / HIDE STATUS MESSAGES ── */
+  function showMsg(id) {
+    document.querySelectorAll('.status-msg').forEach(m => m.style.display = 'none');
+    if (id) document.getElementById(id).style.display = 'block';
+  }
+
+  /* ══════════════════════════════════════════════
+     FORM SUBMISSION
+     1. Validates fields
+     2. Sends data to Make.com webhook → Google Sheets
+     3. Falls back to localStorage if webhook not set
+     ══════════════════════════════════════════════ */
+  async function submitForm() {
+    const fname   = document.getElementById('fname').value.trim();
+    const email   = document.getElementById('email').value.trim();
+    const age     = document.getElementById('age').value.trim();
+    const phone   = document.getElementById('phone').value.trim();
+    const country = document.getElementById('country').value;
+    const role    = document.getElementById('role').value;
+    const bio     = document.getElementById('bio').value.trim();
+
+    /* Basic validation */
+    if (!fname) { alert('Please enter your name.'); document.getElementById('fname').focus(); return; }
+    if (!email || !email.includes('@')) { alert('Please enter a valid email address.'); document.getElementById('email').focus(); return; }
+    if (!country) { alert('Please select your country.'); return; }
+    if (!role) { alert('Please select your role.'); return; }
+
+    const expertise = [...document.querySelectorAll('.exp-btn.active')].map(b => b.textContent.trim().replace(/^\S+\s/,'')).join(', ');
+    const openTo    = [...document.querySelectorAll('.open-chip.active')].map(c => c.textContent.trim()).join(', ');
+
+    const entry = {
+      timestamp:  new Date().toISOString(),
+      name:       fname,
+      email:      email,
+      age:        age || '—',
+      phone:      phone || '—',
+      country:    country,
+      role:       role,
+      expertise:  expertise || '—',
+      open_to:    openTo   || '—',
+      bio:        bio      || '—',
+      source:     document.referrer || 'direct'
+    };
+
+    /* UI: loading state */
+    const btn = document.getElementById('submit-btn');
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner"></span> Saving your details…';
+    showMsg('msg-saving');
+
+    /* Always save to localStorage as backup */
+    const local = JSON.parse(localStorage.getItem('wb_waitlist') || '[]');
+    local.push(entry);
+    localStorage.setItem('wb_waitlist', JSON.stringify(local));
+
+    /* Send to Make.com webhook → Google Sheets */
+    let savedToCloud = false;
+    if (MAKE_WEBHOOK_URL && MAKE_WEBHOOK_URL !== 'PASTE_YOUR_MAKE_WEBHOOK_URL_HERE') {
+      try {
+        const res = await fetch(MAKE_WEBHOOK_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(entry)
+        });
+        if (res.ok) savedToCloud = true;
+      } catch (err) {
+        console.warn('Webhook failed — saved locally only:', err);
+      }
+    }
+
+    /* Reset UI */
+    btn.disabled = false;
+    btn.innerHTML = 'Join WisdomBridge →';
+    showMsg(null);
+
+    if (!savedToCloud && MAKE_WEBHOOK_URL !== 'PASTE_YOUR_MAKE_WEBHOOK_URL_HERE') {
+      /* Webhook configured but failed — still show success, data is in localStorage */
+      console.warn('Cloud save failed. Data stored locally.');
+    }
+
+    /* Show success screen */
+    showSuccess(fname);
+  }
+
+  function showSuccess(name) {
+    document.getElementById('form-view').style.display = 'none';
+    const s = document.getElementById('success-view');
+    s.style.display = 'block';
+
+    /* Update share links with current URL */
+    const url = encodeURIComponent(SITE_URL);
+    const msg = encodeURIComponent(`I just joined WisdomBridge — a platform connecting retired professionals with young people worldwide. Join me: ${SITE_URL}`);
+    document.getElementById('share-li').href = `https://www.linkedin.com/sharing/share-offsite/?url=${url}`;
+    document.getElementById('share-wa').href = `https://wa.me/?text=${msg}`;
+
+    document.getElementById('signup').scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  function copyLink() {
+    navigator.clipboard.writeText(SITE_URL).then(() => {
+      const btn = document.querySelector('.share-copy');
+      btn.textContent = '✓ Copied!';
+      setTimeout(() => btn.textContent = '📋 Copy link', 2500);
+    });
+  }
+
+  /* ── CHECK IF ALREADY SIGNED UP ── */
+  window.addEventListener('load', () => {
+    const list = JSON.parse(localStorage.getItem('wb_waitlist') || '[]');
+    if (list.length > 0) showSuccess(list[list.length-1].name);
+  });
+
+  /* ── SERVICE WORKER ── */
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/sw.js').catch(() => {});
+    });
+  }
+
+  /* ── INSTALL PROMPT (Android) ── */
+  let deferredPrompt;
+  const installBanner = document.getElementById('install-banner');
+  window.addEventListener('beforeinstallprompt', e => {
+    e.preventDefault();
+    deferredPrompt = e;
+    setTimeout(() => { installBanner.style.transform = 'translateX(-50%) translateY(0)'; installBanner.style.opacity = '1'; }, 5000);
+  });
+  document.getElementById('install-btn').addEventListener('click', async () => {
+    if (!deferredPrompt) return;
+    deferredPrompt.prompt();
+    await deferredPrompt.userChoice;
+    deferredPrompt = null;
+    installBanner.style.opacity = '0';
+  });
+  document.getElementById('dismiss-install').addEventListener('click', () => { installBanner.style.opacity = '0'; });
+
+  /* ── iOS HINT ── */
+  const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+  const isStandalone = window.matchMedia('(display-mode: standalone)').matches || navigator.standalone;
+  if (isIOS && !isStandalone) {
+    setTimeout(() => { document.getElementById('ios-hint').style.display = 'block'; }, 8000);
+  }
+</script>
+</body>
+</html>

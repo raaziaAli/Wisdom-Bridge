@@ -1,0 +1,263 @@
+╔══════════════════════════════════════════════════════════════╗
+║         WISDOMBRIDGE — AUTOMATIC SIGNUP STORAGE              ║
+║         Every signup → your Google Sheet → welcome email     ║
+╚══════════════════════════════════════════════════════════════╝
+
+Total time: about 20 minutes
+No coding required. Follow each step exactly.
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PART 1 — CREATE YOUR GOOGLE SHEET (5 minutes)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. Go to: https://sheets.google.com
+   (sign in with your Google / Gmail account)
+
+2. Click the big "+" button to create a new spreadsheet
+
+3. Name it at the top: "WisdomBridge Members"
+
+4. Click on cell A1 and type these column headers
+   exactly as shown, one per cell across row 1:
+
+   A1: Timestamp
+   B1: Name
+   C1: Email
+   D1: Age
+   E1: Phone
+   F1: Country
+   G1: Role
+   H1: Expertise
+   I1: Open To
+   J1: Bio / Career
+   K1: Source
+
+5. Make the header row bold:
+   - Click the "1" on the left to select the whole row
+   - Press Ctrl+B (or Cmd+B on Mac)
+
+6. Leave this tab open — you'll need it in Part 2.
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PART 2 — SET UP MAKE.COM (10 minutes)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Make.com is the free "bridge" between your website form
+and your Google Sheet. It listens for signups and
+automatically adds them as new rows.
+
+STEP 1 — Create your free Make account
+  → Go to: https://make.com
+  → Click "Sign up for free"
+  → Sign up with your email (free plan is enough)
+
+STEP 2 — Create a new Scenario
+  → On your Make dashboard, click "Create a new scenario"
+  → You'll see a blank canvas with a "+" button
+
+STEP 3 — Add the Webhook trigger (listens for signups)
+  → Click the "+" button
+  → Search for "Webhooks" and click it
+  → Choose "Custom webhook"
+  → Click "Add" then click "Save"
+  → Make shows you a webhook URL — it looks like:
+    https://hook.eu1.make.com/abcd1234efgh5678
+  → COPY THIS URL — you need it in Part 3
+
+  → Click "OK" then click "Run once"
+    (Make is now waiting for a test signup)
+
+STEP 4 — Test it (so Make learns your data structure)
+  → Open your WisdomBridge website in another tab
+  → Fill in the signup form and submit
+  → Go back to Make — it should show "1 bundle received"
+  → Click on the bundle to see your test data ✓
+
+STEP 5 — Add Google Sheets action (saves each signup)
+  → Click the "+" after your webhook bubble
+  → Search "Google Sheets" and click it
+  → Choose "Add a Row"
+  → Click "Create a connection" → sign in with Google
+     (allow Make to access your Google Sheets)
+  → Under "Spreadsheet ID" — search for "WisdomBridge Members"
+  → Under "Sheet Name" — select "Sheet1"
+  → Now map each field:
+
+     Column A (Timestamp)  → select "timestamp" from the list
+     Column B (Name)       → select "name"
+     Column C (Email)      → select "email"
+     Column D (Age)        → select "age"
+     Column E (Phone)      → select "phone"
+     Column F (Country)    → select "country"
+     Column G (Role)       → select "role"
+     Column H (Expertise)  → select "expertise"
+     Column I (Open To)    → select "open_to"
+     Column J (Bio)        → select "bio"
+     Column K (Source)     → select "source"
+
+  → Click "OK"
+
+STEP 6 — Add welcome email (optional but recommended)
+  → Click "+" after the Google Sheets bubble
+  → Search "Gmail" and click it
+  → Choose "Send an Email"
+  → Connect your Gmail account
+  → Fill in:
+
+     To:       {{email}}    ← click the field, select "email"
+     Subject:  Welcome to WisdomBridge, {{name}}!
+     Content:  (copy the email template from the bottom
+                of this file)
+
+  → Click "OK"
+
+STEP 7 — Turn your Scenario ON
+  → At the bottom left, flip the toggle from OFF → ON
+  → Click "Save" (floppy disk icon)
+
+  ✓ Your automation is now LIVE.
+    Every signup goes straight to your Google Sheet
+    AND sends a welcome email — automatically, forever.
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PART 3 — CONNECT YOUR WEBSITE (3 minutes)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Now tell your website where to send signups.
+
+1. Open the file: index.html  (in a text editor)
+
+2. Near the top of the <script> section, find this line:
+
+   const MAKE_WEBHOOK_URL = 'PASTE_YOUR_MAKE_WEBHOOK_URL_HERE';
+
+3. Replace PASTE_YOUR_MAKE_WEBHOOK_URL_HERE with your
+   actual Make webhook URL from Step 3 above. Example:
+
+   const MAKE_WEBHOOK_URL = 'https://hook.eu1.make.com/abcd1234efgh5678';
+
+4. Save the file.
+
+5. Re-upload / redeploy to Netlify:
+   → Go to your Netlify dashboard
+   → Drag your updated folder onto the deploy area
+   → Done — live in 30 seconds.
+
+6. TEST IT:
+   → Open your live website on your phone
+   → Fill in the form and submit
+   → Open Google Sheets — your entry should appear
+     within about 5 seconds ✓
+   → Check your email — welcome message should arrive ✓
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PART 4 — GET NOTIFIED ON YOUR PHONE (bonus, 2 minutes)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Want a notification on your phone every time someone joins?
+
+Option A — Gmail notification (easiest):
+  → In Make, after the Google Sheets step, add another Gmail
+  → Send TO yourself (your email)
+  → Subject: "🌿 New WisdomBridge member: {{name}} from {{country}}"
+  → Turn on Gmail notifications on your phone
+  → You'll feel every single signup ✓
+
+Option B — WhatsApp notification (via Twilio, free tier):
+  → Add a Twilio module in Make after Sheets
+  → Sends you a WhatsApp message for each signup
+  → Ask Claude for help setting this up when ready
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+HOW TO VIEW YOUR MEMBERS ANYTIME
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+On your computer:
+  → Open Google Sheets → "WisdomBridge Members"
+  → See every signup with all their details
+
+On your phone:
+  → Download the Google Sheets app (free)
+  → Open "WisdomBridge Members"
+  → See new members in real time
+
+Sort & filter your members:
+  → Click any column header to sort
+  → Data → Create a filter → filter by Country,
+    Role, Expertise etc.
+  → See "How many seniors from Saudi Arabia joined?"
+    in 3 clicks
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+WELCOME EMAIL TEMPLATE
+(paste this into the Gmail step in Make)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Subject: Welcome to WisdomBridge, {{name}} 🌿
+
+Dear {{name}},
+
+Thank you for joining WisdomBridge.
+
+You are now part of the founding community of something
+I have been dreaming about for years — a global platform
+where the wisdom of experienced people like you reaches
+the next generation.
+
+Your lifetime of experience matters. The young people,
+universities, and communities we are connecting with need
+exactly what you have built and learned.
+
+Here is what happens next:
+
+  → We are building the platform right now, shaped
+    around people like you.
+
+  → You will be among the very first to receive access
+    when we launch.
+
+  → We will reach out personally to our founding members
+    before the public launch.
+
+In the meantime, if you know someone else whose wisdom
+the world needs to hear, please share this link with them:
+
+  [YOUR WEBSITE URL]
+
+With gratitude,
+
+The WisdomBridge Team
+
+P.S. — Reply to this email anytime. We read every message.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+TROUBLESHOOTING
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Problem: Data not appearing in Google Sheets
+Fix: Check that your Scenario in Make is turned ON (green)
+     Check that the webhook URL in index.html is correct
+     Try submitting the form again and watch Make's history
+
+Problem: "Error" message on the form
+Fix: Usually means the webhook URL is wrong
+     Copy it again from Make → paste carefully into index.html
+
+Problem: Welcome email going to spam
+Fix: Ask your first few members to mark it "Not spam"
+     Consider using a custom domain email later
+
+Problem: Make free plan limit reached
+Fix: Free plan allows 1,000 operations/month
+     1 signup = 2-3 operations (webhook + sheets + email)
+     So ~300-400 signups before needing to upgrade ($9/mo)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  Your dream is becoming real. One signup at a time.
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

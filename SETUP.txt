@@ -1,0 +1,225 @@
+╔═══════════════════════════════════════════════════════════╗
+║   WISDOMBRIDGE — GOOGLE APPS SCRIPT SETUP                 ║
+║   No Make.com. No middleman. Everything inside Google.    ║
+╚═══════════════════════════════════════════════════════════╝
+
+Total time: 15 minutes
+What you need: A Google account (Gmail)
+Technical skill required: None — just copy and paste
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+STEP 1 — CREATE YOUR GOOGLE SHEET (2 minutes)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. Go to: https://sheets.google.com
+2. Click "+" to create a new blank spreadsheet
+3. Click "Untitled spreadsheet" at the top
+4. Name it exactly: WisdomBridge Members
+   (spelling and capitals must match exactly)
+5. Leave it open — the script will create the
+   column headers automatically on first signup
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+STEP 2 — CREATE THE APPS SCRIPT (5 minutes)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. Go to: https://script.google.com
+   (sign in with the SAME Google account as your Sheet)
+
+2. Click "New project" (top left)
+
+3. You'll see a code editor with some default text.
+   SELECT ALL of that text and DELETE it.
+
+4. Open the file "Code.gs" from this folder.
+   SELECT ALL of it and COPY it.
+
+5. PASTE it into the Apps Script editor.
+
+6. Find this line near the top:
+   const NOTIFY_EMAIL = 'your@email.com';
+
+   Change your@email.com to YOUR actual email address.
+   This is where you'll receive alerts for each signup.
+
+7. Click the floppy disk icon (or Ctrl+S) to Save.
+
+8. Name the project: WisdomBridge Backend
+   (click "Untitled project" at the top to rename)
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+STEP 3 — TEST IT WORKS (2 minutes)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Before going live, run a test:
+
+1. In the Apps Script editor, look at the top toolbar.
+   You'll see a dropdown that says "Select function".
+   Click it and choose "testScript"
+
+2. Click the ▶ Run button (play icon)
+
+3. First time only: Google will ask for permissions.
+   Click "Review permissions" → choose your Google account
+   → Click "Advanced" → "Go to WisdomBridge Backend (unsafe)"
+   → Click "Allow"
+   (It says "unsafe" because it's your own script, not
+    a published app. This is normal and safe.)
+
+4. After it runs, check:
+   ✓ Your Google Sheet — should have a new test row
+   ✓ Your email inbox — should have a test welcome email
+   ✓ The execution log at the bottom should show no errors
+
+   If you see both — the script works perfectly. ✓
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+STEP 4 — DEPLOY AS A WEB APP (3 minutes)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+This step gives you the URL your website will send data to.
+
+1. In Apps Script, click "Deploy" button (top right)
+   → Choose "New deployment"
+
+2. Click the gear icon ⚙ next to "Select type"
+   → Choose "Web app"
+
+3. Fill in the settings:
+   Description:       WisdomBridge Signup Handler
+   Execute as:        Me (your Google account)
+   Who has access:    Anyone  ← IMPORTANT: must be "Anyone"
+
+4. Click "Deploy"
+
+5. Google shows you a URL that looks like:
+   https://script.google.com/macros/s/AKfycb.../exec
+
+6. COPY THIS URL — this is your Apps Script URL.
+   Keep it safe, you need it in Step 5.
+
+   ⚠ Important: This URL is your backend. Anyone who
+   has it can submit data to your sheet. Don't post it
+   publicly — only put it in your index.html file.
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+STEP 5 — CONNECT YOUR WEBSITE (2 minutes)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Now tell your website where to send signups.
+
+Option A — If you used the previous index.html (Make.com version):
+  1. Open index.html in a text editor
+  2. Find this line:
+     const MAKE_WEBHOOK_URL = '...';
+  3. Replace that entire <script> block with the
+     contents of "form-script.js" from this folder
+  4. In that new script, find:
+     const APPS_SCRIPT_URL = 'PASTE_YOUR_APPS_SCRIPT_URL_HERE';
+  5. Paste your URL from Step 4
+
+Option B — Fresh setup:
+  1. Open index.html
+  2. Find the <script> tag near the bottom
+  3. Replace its entire contents with form-script.js
+  4. Paste your Apps Script URL where indicated
+
+Save index.html. Redeploy to Netlify by dragging the
+updated folder. Done.
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+STEP 6 — LIVE TEST (1 minute)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. Open your live website on your phone
+2. Fill in the signup form with your own details
+3. Submit it
+4. Within 2 seconds:
+   ✓ New row in Google Sheet
+   ✓ Welcome email in your inbox
+   ✓ Notification email: "New member: [your name]"
+
+If all three happen — you're live. ✓
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+UPDATING THE SCRIPT IN THE FUTURE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+If you ever want to change the welcome email wording
+or add new fields:
+
+1. Go to script.google.com
+2. Edit the Code.gs file
+3. Click Deploy → Manage deployments
+4. Click the pencil ✏ icon on your deployment
+5. Change "Version" to "New version"
+6. Click Deploy
+
+The URL stays the same — no changes needed to index.html.
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+WHAT GOOGLE APPS SCRIPT CAN HANDLE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Free daily limits (resets every midnight):
+  Emails sent:        20,000 / day
+  Script runtime:     6 min per execution
+  Total daily runtime: 90 minutes
+  Spreadsheet cells:  5 million total
+
+For WisdomBridge this means:
+  → Up to 20,000 new signups per day before limits
+  → Each signup takes ~1 second of runtime
+  → You will not hit these limits for years
+
+If WisdomBridge grows to 10,000+ signups per day
+(a wonderful problem to have), that is the moment
+to move to Supabase + a proper email service.
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+TROUBLESHOOTING
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Problem: Sheet not found error
+Fix: Make sure the sheet is named exactly
+     "WisdomBridge Members" — check capitals and spaces
+
+Problem: Test runs but no email arrives
+Fix: Check your spam folder. First send sometimes
+     goes to spam. Mark as "Not spam" once.
+
+Problem: "Exception: You do not have permission"
+Fix: Re-run the permissions step. Make sure you
+     clicked "Allow" for all requested permissions.
+
+Problem: Form submits but nothing appears in Sheet
+Fix: In Apps Script → Executions (left sidebar)
+     Check if there are any red error entries.
+     The error message will tell you exactly what failed.
+
+Problem: Deployment URL returns an error page
+Fix: Make sure "Who has access" is set to "Anyone"
+     not "Anyone with Google account" — re-deploy if needed.
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+FILES IN THIS FOLDER
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Code.gs          ← Paste this into Google Apps Script
+form-script.js   ← Replace the <script> block in index.html
+SETUP.txt        ← This file
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  No middlemen. No monthly fees. No moving parts.
+  Just Google talking to Google — the way it should be.
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
